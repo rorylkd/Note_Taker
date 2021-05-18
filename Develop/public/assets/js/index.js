@@ -1,3 +1,5 @@
+console.log('This is working');
+
 let noteTitle;
 let noteText;
 let saveNoteBtn;
