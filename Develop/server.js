@@ -9,9 +9,11 @@ app.get('/notes', (request, response) => {
     response.sendFile(path.join(__dirname, 'public' ,'/notes.html'));
 });
 
-app.get('*', (request, response) => {
-    response.sendFile(path.join(__dirname, 'public' , '/index.html'));
-});
+// app.get('*', (request, response) => {
+//     response.sendFile(path.join(__dirname, 'public' , '/index.html'));
+// });
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
