@@ -5,12 +5,12 @@ const app = express()
 
 const port = 9000;
 
-// app.get('*', (request, response) => {
-//     response.sendFile(path.join(__dirname, './public/index.html'));
-// });
-
 app.get('/notes', (request, response) => {
     response.sendFile(path.join(__dirname, 'public' ,'/notes.html'));
+});
+
+app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname, 'public' , '/index.html'));
 });
 
 app.listen(port, () => {
