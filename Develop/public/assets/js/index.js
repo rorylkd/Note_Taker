@@ -160,6 +160,7 @@ const renderNoteList = async (notes) => {
     li.dataset.note = JSON.stringify(note);
 
     noteListItems.push(li);
+    
   });
 
   if (window.location.pathname === '/notes') {
