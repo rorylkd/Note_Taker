@@ -10,12 +10,12 @@ const port = 9000;
 app.use(express.json());
 
 app.get("/notes", (request, response) => {
-  response.sendFile(path.join(__dirname, "public", "/notes.html"));
+  response.sendFile(path.join(__dirname, "Develop/public", "/notes.html"));
 });
 
 app.get("/api/notes", (request, response) => {
   // Reads our db.json file with readFileSync and then turns it into a usable object with json.parse
-  const dbString = fs.readFileSync("./db/db.json", "utf8");
+  const dbString = fs.readFileSync("./Develop/db/db.json", "utf8");
   const db = JSON.parse(dbString);
 
   // Sending the db data using response.json
@@ -29,7 +29,7 @@ app.post("/api/notes", (request, response) => {
   newNote.id = uuid.v4();
   console.log("newNote", newNote);
   // Opening the db.json file and making it an object
-  const dbString = fs.readFileSync("./db/db.json", "utf8");
+  const dbString = fs.readFileSync("./Develop/db/db.json", "utf8");
   const db = JSON.parse(dbString);
 
   // Adding the new note info to the db array
@@ -40,12 +40,12 @@ app.post("/api/notes", (request, response) => {
   backToStringdb = JSON.stringify(db);
 
   // Writing the db array to the db.json file
-  fs.writeFileSync("./db/db.json", backToStringdb, "utf8", {
+  fs.writeFileSync("./Develop/db/db.json", backToStringdb, "utf8", {
     flags: "w+",
   });
 });
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "Develop/public")));
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
