@@ -18,20 +18,25 @@ app.get("/api/notes", (request, response) => {
     // Reads our db.json file with readFileSync and then turns it into a usable object with json.parse
   const dbString = fs.readFileSync("./Develop/db/db.json", "utf8");
   const db = JSON.parse(dbString);
-    console.log(db);
+
     // Sending the db data using response.json
     response.json(db);
+
 });
 
 app.post("/api/notes", (request, response) => {
     
 const newNote = request.body
-console.log(newNote);
+console.log("newNote", newNote);
+
+const dbString = fs.readFileSync("./Develop/db/db.json", "utf8");
+const db = JSON.parse(dbString);
 
 const nnString = JSON.stringify(newNote);
-fs.writeFileSync('./Develop/db/db.json', nnString);
 
+db.push(nnString);
 
+console.log("db:", db)
 
 });
 
