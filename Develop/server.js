@@ -1,27 +1,35 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
+const express = require("express");
+const path = require("path");
+const fs = require("fs");
+const uuid = require("uuid");
 
-const app = express()
+const app = express();
 
 const port = 9000;
 
-app.get('/notes', (request, response) => {
-    response.sendFile(path.join(__dirname, 'public' ,'/notes.html'));
+app.use(express.json());
+
+app.get("/notes", (request, response) => {
+  response.sendFile(path.join(__dirname, "public", "/notes.html"));
 });
 
-app.get('/api/notes', (request, response) => {
-    // Passing require with the path to a JSON file reads and parses the data into an object.
-    const db = require('./db/db.json');
+app.get("/api/notes", (request, response) => {
+    // Reads our db.json file with readFileSync and then turns it into a usable object with json.parse
+  const dbString = fs.readFileSync("./Develop/db/db.json", "utf8");
+  const db = JSON.parse(dbString);
     console.log(db);
+    // Sending the db data using response.json
+    response.json(db);
 });
+
+// The code below isn't needed as I've made public into a static folder...but I'm hanging onto it just in case
 
 // app.get('*', (request, response) => {
 //     response.sendFile(path.join(__dirname, 'public' , '/index.html'));
 // });
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`);
-})
+  console.log(`App listening at http://localhost:${port}`);
+});
