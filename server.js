@@ -5,7 +5,10 @@ const uuid = require("uuid");
 
 const app = express();
 
-const port = 9000;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 9000;
+}
 
 app.use(express.json());
 
