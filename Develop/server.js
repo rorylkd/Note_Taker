@@ -8,6 +8,7 @@ const app = express();
 const port = 9000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false}));
 
 app.get("/notes", (request, response) => {
   response.sendFile(path.join(__dirname, "public", "/notes.html"));
@@ -20,6 +21,15 @@ app.get("/api/notes", (request, response) => {
     console.log(db);
     // Sending the db data using response.json
     response.json(db);
+});
+
+app.post("/api/notes", (request, response) => {
+    
+const newNote = request.body
+console.log(newNote);
+
+
+
 });
 
 // The code below isn't needed as I've made public into a static folder...but I'm hanging onto it just in case
