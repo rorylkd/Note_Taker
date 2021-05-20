@@ -7,8 +7,9 @@ const app = express();
 
 const port = 9000;
 
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: false}));
+
 
 app.get("/notes", (request, response) => {
   response.sendFile(path.join(__dirname, "public", "/notes.html"));
@@ -24,27 +25,33 @@ app.get("/api/notes", (request, response) => {
 
 });
 
+
+
+
+
 app.post("/api/notes", (request, response) => {
     
+    // Grabbing the new note title and text from the request object
 const newNote = request.body
-console.log("newNote", newNote);
 
+newNote.id = uuid.v4();
+console.log("newNote", newNote);
+ // Opening the db.json file and making it an object
 const dbString = fs.readFileSync("./Develop/db/db.json", "utf8");
 const db = JSON.parse(dbString);
 
-const nnString = JSON.stringify(newNote);
-
-db.push(nnString);
+// Adding the new note info to the db array
+db.push(newNote);
 
 console.log("db:", db)
+ // Converting it back to a string
+backToStringdb = JSON.stringify(db);
+
+// Writing the db array to the db.json file
+fs.writeFileSync("./Develop/db/db.json", backToStringdb, "utf8", {'flags': 'w+'})
 
 });
 
-// The code below isn't needed as I've made public into a static folder...but I'm hanging onto it just in case
-
-// app.get('*', (request, response) => {
-//     response.sendFile(path.join(__dirname, 'public' , '/index.html'));
-// });
 
 app.use(express.static(path.join(__dirname, "public")));
 
