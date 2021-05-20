@@ -28,7 +28,8 @@ app.post("/api/notes", (request, response) => {
 const newNote = request.body
 console.log(newNote);
 
-fs.writeFileSync('./Develop/db/db.json', newNote);
+const nnString = JSON.stringify(newNote);
+fs.writeFileSync('./Develop/db/db.json', nnString);
 
 
 
